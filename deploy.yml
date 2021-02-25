@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Lambda Container
+Resources:
+  Function:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: discovery
+      Role: !GetAtt Role.Arn
+      PackageType: Image
+      Code:
+        ImageUri: 977053370764.dkr.ecr.us-east-1.amazonaws.com/discovery:latest
+      Timeout: 5
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: discovery-lambda-role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: discovery-lambda-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - "cloudformation:DescribeChangeSet"
+                  - "cloudformation:DescribeStackResources"
+                  - "cloudformation:DescribeStacks"
+                  - "cloudformation:GetTemplate"
+                  - "cloudformation:ListStackResources"
+                  - "cloudwatch:*"
+                  - "ec2:DescribeSecurityGroups"
+                  - "ec2:DescribeSubnets"
+                  - "ec2:DescribeVpcs"
+                  - "events:*"
+                  - "iam:GetPolicy"
+                  - "iam:GetPolicyVersion"
+                  - "iam:GetRole"
+                  - "iam:GetRolePolicy"
+                  - "iam:ListAttachedRolePolicies"
+                  - "iam:ListRolePolicies"
+                  - "iam:ListRoles"
+                  - "iam:PassRole"
+                  - "kms:ListAliases"
+                  - "lambda:*"
+                  - "logs:*"
+                  - "tag:GetResources"
+                Resource: '*'
+      MaxSessionDuration: 3600 
