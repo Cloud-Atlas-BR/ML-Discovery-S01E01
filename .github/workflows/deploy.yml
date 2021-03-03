@@ -29,5 +29,5 @@ jobs:
         run: | 
           aws cloudformation deploy \
             --stack-name discovery-lambda-stack \
-            --template-file infra/lambda.yml \
+            --template-file lambda.yml \
             --capabilities CAPABILITY_NAMED_IAM
