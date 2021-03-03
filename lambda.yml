@@ -8,7 +8,7 @@ Resources:
       Role: !GetAtt Role.Arn
       PackageType: Image
       Code:
-        ImageUri: 977053370764.dkr.ecr.us-east-1.amazonaws.com/discovery:latest
+        ImageUri: 885248014373.dkr.ecr.us-east-1.amazonaws.com/discovery:latest
       Timeout: 5
   Role:
     Type: AWS::IAM::Role
